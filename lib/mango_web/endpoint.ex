@@ -24,7 +24,7 @@ defmodule MangoWeb.Endpoint do
     at: "/",
     from: :mango,
     gzip: false,
-    only: ~w(css fonts images js favicon.ico robots.txt)
+    only: ~w(css fonts images js web_modules _snowpack favicon.ico robots.txt)
 
   # Code reloading can be explicitly enabled under the
   # :code_reloader configuration of your endpoint.
