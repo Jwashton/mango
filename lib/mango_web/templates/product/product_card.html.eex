@@ -1,0 +1,7 @@
+<article class="product">
+  <div class="product-name"><%= @product.name %></div>
+  <div class="product-size"><%= @product.pack_size %></div>
+  <div class="product-price">₹ <span><%= @product.price %></span></div>
+
+  <img src="<%= Routes.static_path(@conn, Path.join("/images", @product.image)) %>">
+</article>
