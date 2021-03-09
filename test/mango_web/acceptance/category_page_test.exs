@@ -45,7 +45,7 @@ defmodule MangoWeb.Acceptance.CategoryPageTest do
 
     assert product_name == "Apple"
     # And I expect its price to be displayed on screen
-    assert product_price == "100"
+    assert product_price == "₹ 100"
 
     # And I expect that Tomato is not present on screen.
     refute page_source() =~ "Tomato"
@@ -68,7 +68,7 @@ defmodule MangoWeb.Acceptance.CategoryPageTest do
 
     assert product_name == "Tomato"
     # And I expect its price to be displayed on screen
-    assert product_price == "50"
+    assert product_price == "₹ 50"
 
     # And I expect that Apple is not present on screen.
     refute page_source() =~ "Apple"
