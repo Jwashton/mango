@@ -1,14 +1,33 @@
 defmodule MangoWeb.HomepageTest do
-  use ExUnit.Case
+  use Mango.DataCase
   use Hound.Helpers
 
   hound_session()
 
-  test "presence of seasonal products" do
+  setup do
     ## GIVEN ##
     # There are two products Apple and Tomato priced at 100 and 50 repectively
     # With Apple being the only seasonal product
 
+    alias Mango.Repo
+    alias Mango.Catalog.Product
+
+    Repo.insert(%Product{
+      name: "Tomato",
+      price: 50,
+      is_seasonal: false
+    })
+
+    Repo.insert(%Product{
+      name: "Apple",
+      price: 100,
+      is_seasonal: true
+    })
+
+    :ok
+  end
+
+  test "presence of seasonal products" do
     ## WHEN ##
     # I navigate to homepage
     navigate_to("/")
