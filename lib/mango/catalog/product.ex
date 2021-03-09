@@ -2,7 +2,7 @@ defmodule Mango.Catalog.Product do
   use Ecto.Schema
 
   schema "products" do
-    field :image, :string
+    field :image, :string, default: "missing.jpeg"
     field :is_seasonal, :boolean, default: false
     field :name, :string
     field :price, :decimal
