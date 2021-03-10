@@ -11,23 +11,9 @@
     </div>
   <% end %>
 
-  <div class="form-group">
-    <%= label f, :name, class: "control-label" %>
-    <%= text_input f, :name, class: "form-control" %>
-    <%= error_tag f, :name %>
-  </div>
-
-  <div class="form-group">
-    <%= label f, :email, class: "control-label" %>
-    <%= text_input f, :email, class: "form-control" %>
-    <%= error_tag f, :email %>
-  </div>
-
-  <div class="form-group">
-    <%= label f, :phone, class: "control-label" %>
-    <%= text_input f, :phone, class: "form-control" %>
-    <%= error_tag f, :phone %>
-  </div>
+  <%= text_control(f, :name) %>
+  <%= text_control(f, :email) %>
+  <%= text_control(f, :phone) %>
 
   <div class="form-group">
     <%= label f, :residence_area, "Area of Residence", class: "control-label" %>
@@ -35,11 +21,8 @@
     <%= error_tag f, :residence_area %>
   </div>
 
-  <div class="form-group">
-    <%= label f, :password, class: "control-label" %>
-    <%= password_input f, :password, placeholder: "Password", class: "form-control" %>
-    <%= error_tag f, :password %>
-  </div>
+  <%= password_control(f, :password) %>
+  <%= password_control(f, :password_confirmation) %>
 
   <%= submit "Register", class: "btn btn-primary" %>
 <% end %>
