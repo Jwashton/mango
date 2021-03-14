@@ -45,70 +45,10 @@ select {
 
   font-size: 1.5em;
 }
+
 .phx-logo img {
   display: inline-block;
 
   width: 3rem;
   vertical-align: middle;
-}
-
-/* Headers */
-header {
-  position: sticky;
-  top: 0;
-  z-index: 1;
-
-  width: 100%;
-  background: #fdfdfd;
-  border-bottom: 1px solid #eaeaea;
-  margin-bottom: 2rem;
-
-  box-shadow: 1px 1px 4px 0px #ababab;
-}
-header section {
-  align-items: center;
-  display: flex;
-  flex-direction: column-reverse;
-  justify-content: flex-start;
-}
-
-header nav {
-  flex-grow: 1;
-}
-header nav ul {
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-
-  margin: 0;
-  padding: 0;
-
-  list-style: none;
-}
-
-header nav li {
-  margin-right: 1em;
-  margin-bottom: 0;
-
-  text-align: right;
-  white-space: nowrap;
-}
-header nav ul {
-  margin: 1rem;
-  margin-top: 0;
-}
-header nav a {
-  display: block;
-}
-
-@media (min-width: 40.0rem) { /* Small devices (landscape phones, 576px and up) */
-  header section {
-    flex-direction: row-reverse;
-  }
-  header nav ul {
-    margin: 1rem;
-  }
-  .phx-logo {
-    margin: 2rem 1rem;
-  }
 }
