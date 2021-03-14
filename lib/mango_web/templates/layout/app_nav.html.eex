@@ -18,12 +18,12 @@
               <%= if function_exported?(Routes, :live_dashboard_path, 2) do %>
                 <li><%= link "LiveDashboard", to: Routes.live_dashboard_path(@conn, :home) %></li>
               <% end %>
-              <li><%= link "Log Out", to: "/logout" %></li>
+              <li><%= link "Log Out", to: Routes.session_path(@conn, :delete), method: :delete %></li>
             </ul>
           </li>
         <% else %>
-          <li><%= link "Register", to: Routes.registration_path(@conn, :new), class: "nav-link" %></li>
-          <li><%= link "Sign in", to: Routes.session_path(@conn, :new), class: "nav-link" %></li>
+          <li><%= link "Register", to: Routes.registration_path(@conn, :new) %></li>
+          <li><%= link "Sign in", to: Routes.session_path(@conn, :new) %></li>
         <% end %>
       </ul>
     </nav>
