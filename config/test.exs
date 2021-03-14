@@ -18,7 +18,7 @@ config :mango, MangoWeb.Endpoint,
   http: [port: 4002],
   server: true
 
-config :hound, driver: "chrome_driver", app_port: 4002
+config :hound, driver: "chrome_driver", browser: "chrome_headless", app_port: 4002
 
 # Print only warnings and errors during test
 config :logger, level: :warn
