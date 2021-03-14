@@ -9,22 +9,8 @@
     <script defer type="text/javascript" src="<%= Routes.static_path(@conn, "/js/app.js") %>"></script>
   </head>
   <body>
-    <header>
-      <section class="container">
-        <nav role="navigation">
-          <ul>
-            <li><%= link "Fruits", to: Routes.category_path(@conn, :show, "fruits") %></li>
-            <li><%= link "Vegetables", to: Routes.category_path(@conn, :show, "vegetables") %></li>
-            <%= if function_exported?(Routes, :live_dashboard_path, 2) do %>
-              <li><%= link "LiveDashboard", to: Routes.live_dashboard_path(@conn, :home) %></li>
-            <% end %>
-          </ul>
-        </nav>
-        <a href="/" class="phx-logo">
-          <img src="<%= Routes.static_path(@conn, "/images/logo.png") %>" alt="Mango Logo"/> Mango
-        </a>
-      </section>
-    </header>
+    <%= render "app_nav.html", conn: @conn, customer: @current_customer %>
+
     <main role="main" class="container">
       <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
       <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>
