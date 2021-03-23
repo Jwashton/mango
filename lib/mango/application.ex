@@ -14,7 +14,8 @@ defmodule Mango.Application do
       # Start the PubSub system
       {Phoenix.PubSub, name: Mango.PubSub},
       # Start the Endpoint (http/https)
-      MangoWeb.Endpoint
+      MangoWeb.Endpoint,
+      Auroville.ResidenceService
       # Start a worker by calling: Mango.Worker.start_link(arg)
       # {Mango.Worker, arg}
     ]
