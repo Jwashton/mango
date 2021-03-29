@@ -3,5 +3,9 @@
   <div class="product-size"><%= @product.pack_size %></div>
   <div class="product-price">₹ <%= @product.price %></div>
 
+  <hr>
+
+  <%= render "cart_form.html", product: @product, conn: @conn %>
+
   <img src="<%= Routes.static_path(@conn, Path.join("/images", @product.image)) %>">
 </article>
