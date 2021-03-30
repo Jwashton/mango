@@ -6,7 +6,6 @@
 
   width: 100%;
   background: #fdfdfd;
-  border-bottom: 1px solid #eaeaea;
   margin-bottom: 2rem;
 
   box-shadow: 1px 1px 4px 0px #ababab;
@@ -110,5 +109,10 @@
     .nav-shelf {
       flex-direction: row-reverse;
     }
+  }
+
+  .cart-nav-link {
+    background-color: #4b4b4b;
+    color: white;
   }
 }
