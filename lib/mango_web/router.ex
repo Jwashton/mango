@@ -23,6 +23,7 @@ defmodule MangoWeb.Router do
 
     get "/cart", CartController, :show
     post "/cart", CartController, :add
+    put "/cart", CartController, :update
 
     get "/register", RegistrationController, :new
     post "/register", RegistrationController, :create
