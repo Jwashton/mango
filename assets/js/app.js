@@ -14,6 +14,10 @@ import '../css/app.scss';
 //
 import 'phoenix_html';
 
+import ajaxCart from './ajax_cart';
+
+ajaxCart.init();
+
 const toggleUserMenu = function toggleUserMenu(event) {
   event.preventDefault();
   event.stopPropagation();
@@ -27,12 +31,12 @@ const toggleUserMenu = function toggleUserMenu(event) {
 const hideUserMenu = function hideUserMenu() {
   document
     .getElementById('user-nav-options')
-    .classList
-    .remove('visible');
+    ?.classList
+    ?.remove('visible');
 }
 
 document
   .getElementById('user-nav-toggle')
-  .addEventListener('click', toggleUserMenu);
+  ?.addEventListener('click', toggleUserMenu);
 
 document.addEventListener('click', hideUserMenu);
