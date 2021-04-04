@@ -60,10 +60,12 @@ defmodule MangoWeb.Acceptance.CartTest do
     find_within_element(product, :tag, "button")
     |> click()
 
-    message = find_element(:css, ".alert")
-    |> visible_text()
+    assert wait_for(fn ->
+      message = find_element(:css, ".toast")
+      |> visible_text()
 
-    assert message == "Product added to cart - #{product_name}(#{pack_size}) x 2 qty"
+      assert message == "Product added to cart - #{product_name}(#{pack_size}) x 2 qty"
+    end)
   end
 
   test "viewing the cart" do
@@ -86,6 +88,13 @@ defmodule MangoWeb.Acceptance.CartTest do
     find_within_element(product, :tag, "button")
     |> click()
 
+    assert wait_for(fn ->
+      message = find_element(:css, ".toast")
+      |> visible_text()
+
+      assert message == "Product added to cart - #{product_name}(#{pack_size}) x 2 qty"
+    end)
+
     ## Looking at the cart...
     navigate_to("/cart")
 
@@ -95,6 +104,15 @@ defmodule MangoWeb.Acceptance.CartTest do
 
     ## FIXME: There are hardcoded money values here, dependant on the order
     # of the products on the page.
-    assert line_items == "#{product_name} #{pack_size} 2 ₹ 55 ₹ 110"
+    assert line_items == "#{product_name} #{pack_size} ₹ 55 ₹ 110"
+  end
+
+  defp wait_for(func) do
+    :timer.sleep(100)
+
+    case func.() do
+      true -> true
+      false -> wait_for(func)
+    end
   end
 end
