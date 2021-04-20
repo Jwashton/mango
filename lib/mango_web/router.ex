@@ -41,7 +41,9 @@ defmodule MangoWeb.Router do
     pipe_through [:browser, :frontend, MangoWeb.Plugs.AuthenticateCustomer]
 
     delete "/logout", SessionController, :delete
+
     get "/checkout", CheckoutController, :edit
+    put "/checkout/confirm", CheckoutController, :update
   end
 
   # Other scopes may use custom stacks.
