@@ -40,4 +40,36 @@ defmodule Mano.SalesTest do
     assert line_item.unit_price == Decimal.new(product.price)
     assert line_item.total == Decimal.mult(Decimal.new(product.price), Decimal.new(2))
   end
+
+  # test "remove an item from the cart" do
+  #   product =
+  #     %Product{
+  #       name: "Tomato",
+  #       pack_size: "1 kg",
+  #       price: 55,
+  #       sku: "A123",
+  #       is_seasonal: false,
+  #       category: "vegetables"
+  #     }
+  #     |> Repo.insert!()
+
+  #   cart = Sales.create_cart()
+
+  #   {:ok, cart} = Sales.add_to_cart(cart, %{"product_id" => product.id, "quantity" => "2"})
+
+  #   %{line_items: [li]} = cart
+
+  #   result = Sales.update_cart(cart, %{
+  #     "line_items" => %{
+  #       "0" => %{
+  #         "delete" => "true",
+  #         "id" => li.id,
+  #         "product_id" => product.id,
+  #         "quantity" => "2"
+  #       }
+  #     }
+  #   })
+
+  #   assert {:ok, _} = result
+  # end
 end

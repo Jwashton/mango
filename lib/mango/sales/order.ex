@@ -20,7 +20,7 @@ defmodule Mango.Sales.Order do
   def changeset(order, attrs) do
     order
     |> cast(attrs, [:status, :total])
-    |> cast_embed(:line_items, require: true, with: &LineItem.changeset/2)
+    |> cast_embed(:line_items, required: true, with: &LineItem.changeset/2)
     |> set_order_total()
     |> validate_required([:status, :total, :line_items])
   end
