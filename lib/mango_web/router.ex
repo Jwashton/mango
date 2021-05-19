@@ -44,6 +44,7 @@ defmodule MangoWeb.Router do
 
     get "/checkout", CheckoutController, :edit
     put "/checkout/confirm", CheckoutController, :update
+    resources "/tickets", TicketController, except: [:edit, :update, :delete]
   end
 
   # Other scopes may use custom stacks.
