@@ -18,6 +18,7 @@
               <span class="caret"></span>
             </a>
             <ul id="user-nav-options">
+              <li><%= link "My Orders", to: Routes.order_path(@conn, :index) %></li>
               <%= if function_exported?(Routes, :live_dashboard_path, 2) do %>
                 <li><%= link "LiveDashboard", to: Routes.live_dashboard_path(@conn, :home) %></li>
               <% end %>

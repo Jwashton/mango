@@ -44,6 +44,9 @@ defmodule MangoWeb.Router do
 
     get "/checkout", CheckoutController, :edit
     put "/checkout/confirm", CheckoutController, :update
+
+    get "/orders", OrderController, :index
+
     resources "/tickets", TicketController, except: [:edit, :update, :delete]
   end
 

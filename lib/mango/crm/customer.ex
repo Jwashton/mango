@@ -3,6 +3,7 @@ defmodule Mango.CRM.Customer do
   import Ecto.Changeset
   import Bcrypt, only: [hash_pwd_salt: 1]
   alias Mango.CRM.Ticket
+  alias Mango.Sales.Order
 
   schema "customers" do
     field :email, :string
@@ -12,6 +13,7 @@ defmodule Mango.CRM.Customer do
     field :phone, :string
     field :residence_area, :string
     has_many :tickets, Ticket
+    has_many :orders, Order
 
     timestamps()
   end

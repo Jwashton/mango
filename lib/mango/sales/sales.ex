@@ -45,4 +45,10 @@ defmodule Mango.Sales do
     |> Order.checkout_changeset(attrs)
     |> Repo.update()
   end
+
+  def list_customer_orders(customer) do
+    customer
+    |> Ecto.assoc(:orders)
+    |> Repo.all()
+  end
 end

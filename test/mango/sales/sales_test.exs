@@ -41,6 +41,46 @@ defmodule Mano.SalesTest do
     assert line_item.total == Decimal.mult(Decimal.new(product.price), Decimal.new(2))
   end
 
+  test "list_customer_orders/1" do
+    {:ok, customer} = Mango.CRM.create_customer(%{
+      "name" => "Jean-Luc Picard",
+      "email" => "picard@starfleet.gov",
+      "password" => "secret",
+      "phone" => "1111",
+      "residence_area" => "Area 1"
+    })
+
+    apple = Repo.insert!(%Product{
+      name: "Apple",
+      pack_size: "1 kg",
+      price: 75,
+      sku: "B232",
+      is_seasonal: true
+    })
+
+    line_item = %{
+      "product_id" => apple.id,
+      "product_name" => apple.name,
+      "pack_size" => apple.pack_size,
+      "unit_price" => apple.price,
+      "quantity" => 2
+    }
+
+    {:ok, cart} =
+      Sales.create_cart()
+      |> Sales.add_to_cart(line_item)
+
+    Sales.confirm_order(cart, %{
+      "customer_id" => customer.id,
+      "customer_name" => customer.name,
+      "residence_area" => customer.residence_area,
+      "email" => customer.email,
+      "comments" => "Please leave by the front door."
+    })
+
+    assert [%{status: "Confirmed"}] = Sales.list_customer_orders(customer)
+  end
+
   # test "remove an item from the cart" do
   #   product =
   #     %Product{

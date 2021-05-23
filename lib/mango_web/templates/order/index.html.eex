@@ -1,0 +1,18 @@
+<table id="user-orders">
+  <thead>
+    <tr>
+      <th>Order ID</th>
+      <th>Status</th>
+      <th>Products</th>
+      <th>Total</th>
+    </tr>
+  </thead>
+  <%= for order <- @orders do %>
+    <tr>
+      <td><%= order.id %></td>
+      <td><%= order.status %></td>
+      <td><%= product_list(order) %></td>
+      <td><%= order.total %></td>
+    </tr>
+  <% end %>
+</table>

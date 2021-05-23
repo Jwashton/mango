@@ -6,7 +6,7 @@ defmodule MangoWeb.CartController do
     cart = conn.assigns.cart
     cart_changeset = Sales.change_cart(cart)
 
-    render conn, "show.html", cart_changeset: cart_changeset
+    render(conn, "show.html", cart_changeset: cart_changeset)
   end
 
   def add(conn, %{"cart" => cart_params}) do
