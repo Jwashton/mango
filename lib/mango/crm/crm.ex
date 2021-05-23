@@ -30,11 +30,11 @@ defmodule Mango.CRM do
   end
 
   @doc """
-  Returns the list of tickets.
+  Returns the list of a given customer's tickets.
 
   ## Examples
 
-      iex> list_tickets()
+      iex> list_tickets(customer)
       [%Ticket{}, ...]
 
   """
@@ -45,16 +45,17 @@ defmodule Mango.CRM do
   end
 
   @doc """
-  Gets a single ticket.
+  Gets a single ticket for a customer.
 
-  Raises `Ecto.NoResultsError` if the Ticket does not exist.
+  Raises `Ecto.NoResultsError` if the Ticket does not exist, or if it does not
+  belong to the given customer.
 
   ## Examples
 
-      iex> get_ticket!(123)
+      iex> get_ticket!(customer, 123)
       %Ticket{}
 
-      iex> get_ticket!(456)
+      iex> get_ticket!(customer, 456)
       ** (Ecto.NoResultsError)
 
   """
@@ -65,14 +66,14 @@ defmodule Mango.CRM do
   end
 
   @doc """
-  Creates a ticket.
+  Creates a ticket for a customer.
 
   ## Examples
 
-      iex> create_ticket(%{field: value})
+      iex> create_ticket(customer, %{field: value})
       {:ok, %Ticket{}}
 
-      iex> create_ticket(%{field: bad_value})
+      iex> create_ticket(customer, %{field: bad_value})
       {:error, %Ecto.Changeset{}}
 
   """
@@ -82,11 +83,11 @@ defmodule Mango.CRM do
   end
 
   @doc """
-  Returns an `%Ecto.Changeset{}` for tracking ticket changes.
+  Returns an `%Ecto.Changeset{}` for tracking a customer's ticket changes.
 
   ## Examples
 
-      iex> change_ticket(ticket)
+      iex> change_ticket(cusomter, ticket)
       %Ecto.Changeset{data: %Ticket{}}
 
   """
