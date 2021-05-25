@@ -51,4 +51,16 @@ defmodule Mango.Sales do
     |> Ecto.assoc(:orders)
     |> Repo.all()
   end
+
+  def get_customer_order(customer, order_id) do
+    order =
+      customer
+      |> Ecto.assoc(:orders)
+      |> Repo.get_by(id: order_id)
+
+    case order do
+      nil -> {:error, :not_found}
+      _ -> {:ok, order}
+    end
+  end
 end

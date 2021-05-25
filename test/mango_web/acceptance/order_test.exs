@@ -5,31 +5,16 @@ defmodule MangoWeb.Acceptance.OrderTest do
   hound_session()
 
   setup do
-    alias Mango.Repo
-    alias Mango.Catalog.Product
     alias Mango.Sales
 
-    {:ok, customer} = Mango.CRM.create_customer(%{
-      "name" => "Jean-Luc Picard",
-      "email" => "picard@starfleet.gov",
-      "password" => "secret",
-      "phone" => "1111",
-      "residence_area" => "Area 1"
-    })
-
-    apple = Repo.insert!(%Product{
-      name: "Apple",
-      pack_size: "1 kg",
-      price: 75,
-      sku: "B232",
-      is_seasonal: true
-    })
+    customer = Mango.DataBuilder.customer()
+    product = Mango.DataBuilder.product()
 
     line_item = %{
-      "product_id" => apple.id,
-      "product_name" => apple.name,
-      "pack_size" => apple.pack_size,
-      "unit_price" => apple.price,
+      "product_id" => product.id,
+      "product_name" => product.name,
+      "pack_size" => product.pack_size,
+      "unit_price" => product.price,
       "quantity" => 2
     }
 
@@ -37,25 +22,39 @@ defmodule MangoWeb.Acceptance.OrderTest do
       Sales.create_cart()
       |> Sales.add_to_cart(line_item)
 
-    Sales.confirm_order(cart, %{
-      "customer_id" => customer.id,
-      "customer_name" => customer.name,
-      "residence_area" => customer.residence_area,
-      "email" => customer.email,
-      "comments" => "Please leave by the front door."
-    })
+    {:ok, order} =
+      Sales.confirm_order(cart, %{
+        "customer_id" => customer.id,
+        "customer_name" => customer.name,
+        "residence_area" => customer.residence_area,
+        "email" => customer.email,
+        "comments" => "Please leave by the front door."
+      })
 
-    :ok
+    %{
+      order: order,
+      customer: customer
+    }
   end
 
-  test "view orders" do
-    login("picard@starfleet.gov", "secret")
+  test "view orders", %{customer: customer} do
+    login(customer.email, "secret")
 
     navigate_to("/orders")
 
     table = find_element(:id, "user-orders")
 
     assert visible_text(table) =~ "Confirmed"
+  end
+
+  test "viewing a specific order", %{customer: customer, order: order} do
+    login(customer.email, "secret")
+
+    navigate_to("/orders/#{order.id}")
+
+    order_info = find_element(:id, "order")
+
+    assert visible_text(order_info) =~ "Confirmed"
   end
 
   defp login(email, password) do

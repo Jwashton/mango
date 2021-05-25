@@ -1,6 +1,7 @@
 defmodule Mano.SalesTest do
   use Mango.DataCase
 
+  alias Mango.DataBuilder
   alias Mango.{Sales, Repo}
   alias Mango.Sales.Order
   alias Mango.Catalog.Product
@@ -41,44 +42,60 @@ defmodule Mano.SalesTest do
     assert line_item.total == Decimal.mult(Decimal.new(product.price), Decimal.new(2))
   end
 
-  test "list_customer_orders/1" do
-    {:ok, customer} = Mango.CRM.create_customer(%{
-      "name" => "Jean-Luc Picard",
-      "email" => "picard@starfleet.gov",
-      "password" => "secret",
-      "phone" => "1111",
-      "residence_area" => "Area 1"
-    })
+  describe "orders" do
+    setup do
+      customer = DataBuilder.customer()
+      other_customer = DataBuilder.customer()
+      product = DataBuilder.product()
 
-    apple = Repo.insert!(%Product{
-      name: "Apple",
-      pack_size: "1 kg",
-      price: 75,
-      sku: "B232",
-      is_seasonal: true
-    })
+      # Our order
+      line_item = %{
+        "product_id" => product.id,
+        "product_name" => product.name,
+        "pack_size" => product.pack_size,
+        "unit_price" => product.price,
+        "quantity" => 2
+      }
 
-    line_item = %{
-      "product_id" => apple.id,
-      "product_name" => apple.name,
-      "pack_size" => apple.pack_size,
-      "unit_price" => apple.price,
-      "quantity" => 2
-    }
+      {:ok, cart} =
+        Sales.create_cart()
+        |> Sales.add_to_cart(line_item)
 
-    {:ok, cart} =
-      Sales.create_cart()
-      |> Sales.add_to_cart(line_item)
+      {:ok, order} = Sales.confirm_order(cart, %{
+        "customer_id" => customer.id,
+        "customer_name" => customer.name,
+        "residence_area" => customer.residence_area,
+        "email" => customer.email,
+        "comments" => "Please leave by the front door."
+      })
 
-    Sales.confirm_order(cart, %{
-      "customer_id" => customer.id,
-      "customer_name" => customer.name,
-      "residence_area" => customer.residence_area,
-      "email" => customer.email,
-      "comments" => "Please leave by the front door."
-    })
+      # Someone else's order
+      {:ok, other_cart} =
+        Sales.create_cart()
+        |> Sales.add_to_cart(line_item)
 
-    assert [%{status: "Confirmed"}] = Sales.list_customer_orders(customer)
+      {:ok, other_order} = Sales.confirm_order(other_cart, %{
+        "customer_id" => other_customer.id,
+        "customer_name" => other_customer.name,
+        "residence_area" => other_customer.residence_area,
+        "email" => other_customer.email,
+        "comments" => "Please leave by the front door."
+      })
+
+      %{customer: customer, order: order, other_order: other_order}
+    end
+
+    test "list_customer_orders/1", %{customer: customer} do
+      assert [%{status: "Confirmed"}] = Sales.list_customer_orders(customer)
+    end
+
+    test "getting a customer's order", %{customer: customer, order: order} do
+      assert {:ok, _order} = Sales.get_customer_order(customer, order.id)
+    end
+
+    test "rejecting access to another order", %{customer: customer, other_order: order} do
+      assert {:error, :not_found} = Sales.get_customer_order(customer, order.id)
+    end
   end
 
   # test "remove an item from the cart" do
