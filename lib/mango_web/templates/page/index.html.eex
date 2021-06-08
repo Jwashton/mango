@@ -1,4 +1,4 @@
-<h1 class="page-title">Seasonal products</h1>
+<h1 class="page-title"><%= ngettext "Seasonal product", "Seasonal products", Enum.count(@seasonal_products) %></h1>
 
 <div class="product-shelf">
   <%= for product <- @seasonal_products do %>

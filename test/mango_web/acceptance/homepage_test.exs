@@ -35,7 +35,7 @@ defmodule MangoWeb.HomepageTest do
     ## THEN ##
     # I expect the page title to be "Seasonal products"
     page_title = find_element(:css, ".page-title") |> visible_text()
-    assert page_title == "Seasonal products"
+    assert page_title == "Seasonal product"
 
     # And I expect Apple to be the product displayed
     product = find_element(:css, ".product")

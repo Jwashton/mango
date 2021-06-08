@@ -15,28 +15,10 @@ import '../css/app.scss';
 import 'phoenix_html';
 
 import ajaxCart from './ajax_cart';
+import Dropdown from './dropdown';
 
 ajaxCart.init();
 
-const toggleUserMenu = function toggleUserMenu(event) {
-  event.preventDefault();
-  event.stopPropagation();
-
-  document
-    .getElementById('user-nav-options')
-    .classList
-    .toggle('visible');
-};
-
-const hideUserMenu = function hideUserMenu() {
-  document
-    .getElementById('user-nav-options')
-    ?.classList
-    ?.remove('visible');
+for (const node of document.getElementsByClassName('dropdown')) {
+  Dropdown.hydrate(node);
 }
-
-document
-  .getElementById('user-nav-toggle')
-  ?.addEventListener('click', toggleUserMenu);
-
-document.addEventListener('click', hideUserMenu);

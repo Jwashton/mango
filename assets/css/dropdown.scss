@@ -1,0 +1,65 @@
+@use "./theme.scss" as theme;
+
+.dropdown {
+  position: relative;
+}
+
+button.dropdown-toggle {
+  height: 100%;
+  border: none;
+  margin-bottom: 0;
+
+  font-size: 1.5rem;
+  font-weight: normal;
+  letter-spacing: unset;
+
+  background-color: unset;
+  color: theme.$accent-color;
+
+  &::after {
+    content: "▾";
+
+    margin-left: 0.5rem;
+  }
+}
+
+.dropdown-options {
+  display: none;
+
+  height: auto;
+  margin: 0;
+  padding: 0;
+
+  list-style: none;
+
+  &.visible {
+    position: absolute;
+    // top: 7rem;
+    right: 0;
+  
+    display: block;
+  
+    background-color: white;
+    box-shadow: 1px 1px 4px 0px #ababab;
+  }
+
+  li {
+    height: auto;
+    margin: 0;
+  }
+
+  li.active {
+    background-color: theme.$accent-color;
+
+    a {
+      color: white;
+    }
+  }
+
+  a {
+    display: inline-block;
+
+    width: 100%;
+    padding: 1rem;
+  }
+}

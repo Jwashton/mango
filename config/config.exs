@@ -18,6 +18,9 @@ config :mango, MangoWeb.Endpoint,
   pubsub_server: Mango.PubSub,
   live_view: [signing_salt: "+29mSNpT"]
 
+config :mango, MangoWeb.Gettext,
+  default_locale: "en"
+
 # Configures Elixir's Logger
 config :logger, :console,
   format: "$time $metadata[$level] $message\n",
